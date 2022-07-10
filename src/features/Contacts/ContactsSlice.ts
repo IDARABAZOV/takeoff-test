@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store";
 import {fetchContacts} from "./ContactsAPI";
 
@@ -11,11 +11,13 @@ interface Contact {
 
 export interface ContactsState {
     value: Contact[]
+    filteredValue: Contact[]
     status: 'idle' | 'loading' | 'failed'
 }
 
 const initialState: ContactsState = {
     value: [],
+    filteredValue: [],
     status: 'idle'
 }
 
@@ -30,12 +32,22 @@ export const getContacts = createAsyncThunk(
 export const contactsSlice = createSlice({
     name: "contacts",
     initialState,
-    reducers: {},
+    reducers: {
+        liveSearch: (state, action: PayloadAction<string>) => {
+            state.filteredValue = state.value.filter((item) => {
+                return (
+                    item.name.toLowerCase().match(action.payload.toLowerCase())
+                )
+            })
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getContacts.fulfilled, (state, action) => {
                 state.value = [];
+                state.filteredValue = []
                 state.value = state.value.concat(action.payload);
+                state.filteredValue = state.filteredValue.concat(action.payload);
                 state.status = 'idle';
             })
             .addCase(getContacts.pending, (state) => {
@@ -47,7 +59,9 @@ export const contactsSlice = createSlice({
     }
 })
 
-export const selectContacts = (state: RootState) => state.contacts.value;
+export const {liveSearch} = contactsSlice.actions
+
+export const selectContacts = (state: RootState) => state.contacts.filteredValue;
 export const getStatus = (state: RootState) => state.contacts.status;
 
 export default contactsSlice.reducer;

@@ -19,7 +19,7 @@ const Contacts = () => {
 
     useEffect(() => {
         dispatch(getContacts());
-    }, [])
+    }, [dispatch])
 
     return (
         <>

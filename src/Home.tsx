@@ -6,8 +6,11 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import {useAppDispatch} from "./app/hooks";
+import {liveSearch} from "./features/Contacts/ContactsSlice";
 
 const Home = () => {
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const logout = () => {
@@ -61,6 +64,9 @@ const Home = () => {
                             size={"small"}
                             label="Поиск по имени"
                             variant="outlined"
+                            onChange={(e) => {
+                                dispatch(liveSearch(e.target.value))
+                            }}
                         />
                     </Box>
                     {/*Таблица*/}

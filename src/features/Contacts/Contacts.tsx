@@ -33,7 +33,12 @@ const Contacts = () => {
                                     <TableCell align="right" sx={{ fontWeight: "bold" }}>Name</TableCell>
                                     <TableCell align="right" sx={{ fontWeight: "bold" }}>Phone</TableCell>
                                     <TableCell align="right" sx={{ fontWeight: "bold" }}>Email</TableCell>
-                                    <TableCell colSpan={3}></TableCell>
+                                    <TableCell
+                                        align="center"
+                                        sx={{ fontWeight: "bold" }}
+                                    >
+                                        Actions
+                                    </TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -46,15 +51,19 @@ const Contacts = () => {
                                         <TableCell align="right">{row.name}</TableCell>
                                         <TableCell align="right">{row.phone}</TableCell>
                                         <TableCell align="right">{row.email}</TableCell>
-                                        <TableCell align="right">
+                                        <TableCell
+                                            align="center"
+                                            sx={{
+                                                display: "flex",
+                                                justifyContent: "space-around"
+                                            }}
+                                        >
                                             <Button
                                                 variant={"outlined"}
                                                 color={"warning"}
                                             >
                                                 Edit
                                             </Button>
-                                        </TableCell>
-                                        <TableCell align="right">
                                             <Button
                                                 variant={"outlined"}
                                                 color={"error"}

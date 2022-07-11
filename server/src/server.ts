@@ -7,6 +7,12 @@ const middlewares = jsonServer.defaults()
 
 server.db = router.db
 
+const rules = auth.rewriter({
+    "users": 660,
+    "contacts": 660,
+})
+
+server.use(rules);
 server.use(auth)
 server.use(middlewares)
 server.use(router)

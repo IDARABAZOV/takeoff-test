@@ -22,7 +22,7 @@ const initialState: ContactsState = {
 }
 
 export const getContacts = createAsyncThunk(
-    'contacts/fetchContacts',
+    'contacts/getContacts',
     async () => {
         const data = await fetchContacts();
         return data.json();

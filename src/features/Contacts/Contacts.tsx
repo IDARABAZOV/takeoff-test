@@ -21,6 +21,16 @@ const Contacts = () => {
         dispatch(getContacts());
     }, [dispatch])
 
+    const deleteContact = async (id: number) => {
+        return await fetch(`/contacts/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .then(() => dispatch(getContacts()))
+    }
+
     return (
         <>
             {status === 'idle' ?
@@ -67,6 +77,7 @@ const Contacts = () => {
                                             <Button
                                                 variant={"outlined"}
                                                 color={"error"}
+                                                onClick={() => deleteContact(row.id)}
                                             >
                                                 Delete
                                             </Button>

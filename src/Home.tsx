@@ -57,6 +57,7 @@ const Home = () => {
                     >
                         <Button
                             variant={"contained"}
+                            onClick={() => navigate("/add")}
                         >
                             Add
                         </Button>

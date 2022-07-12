@@ -11,8 +11,10 @@ import Paper from '@mui/material/Paper';
 import CircularProgress from "@mui/material/CircularProgress";
 import {useAppSelector, useAppDispatch} from "../../app/hooks";
 import {selectContacts, getStatus, getContacts} from "./ContactsSlice";
+import {useNavigate} from "react-router-dom";
 
 const Contacts = () => {
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const contacts = useAppSelector(selectContacts);
     const status = useAppSelector(getStatus);
@@ -71,6 +73,7 @@ const Contacts = () => {
                                             <Button
                                                 variant={"outlined"}
                                                 color={"warning"}
+                                                onClick={() => navigate(`/edit/${row.id}`)}
                                             >
                                                 Edit
                                             </Button>
